@@ -36,7 +36,7 @@ If you have developed some nifty functions or expansions to rezervejo, feel free
              <?php } else { ?>
             style="background-image: url('images/rezervejo.png');">
              <?php } ?>
-            <h4><?= $allcats['name']; ?></h4>            
+            <h4 class="text"><?= $allcats['name']; ?></h4>            
         </div></a>
         <?php
         }

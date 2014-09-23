@@ -7,7 +7,7 @@ $prodid = $_GET['product'];
         while($allprods = mysqli_fetch_assoc($prods)) {
             foreach ($allprods as $key => $value) {${$key} = $value;}           
         } 
-        include_once 'rights.inc'; 
+
 
 if($_SESSION['login'] == 'nologin') {
      $maxbefore = 0;
@@ -20,11 +20,7 @@ elseif($_SESSION['login'] == 'admin') {
      $maxuntil = 60;
      $maxtime = 31;
      $maxitems = $number; 
-    }
-    
-
-//FOR DATES: create array 'from' & 'until' > in select with foreach + if(in_array) to check with post - idem voor max_items
-
+    } include_once 'rights.inc'; 
 
     $now = time(); 
     $d = date("d", $now); $m = date("m",$now); $Y = date("Y",$now);
@@ -34,11 +30,15 @@ elseif($_SESSION['login'] == 'admin') {
             
     if(isset($_POST['r_from'])) {
         $until = createCal($link, $maxitems, $_POST['r_from'], $maxtime, $prodid, $number);
-        $_SESSION['order']['from'] = $_POST['r_from'];
-        unset($_SESSION['order']['until']);    
+        $r_from = explode('_',$_POST['r_from']);
+        $_SESSION['order']['from'] = $r_from['0'];
+        $_SESSION['from_max_select'] = $r_from['1'];
+        unset($_SESSION['order']['until']);   unset($_SESSION['until_max_select']);
     }
     if(isset($_POST['r_until'])) {
-                $_SESSION['order']['until'] = $_POST['r_until'];
+        $r_until = explode('_', $_POST['r_until']);
+                $_SESSION['order']['until'] = $r_until['0'];
+                $_SESSION['until_max_select'] = $r_until['1'];
                 unset($_SESSION['order']['number']);
     } 
     
@@ -82,8 +82,9 @@ elseif($_SESSION['login'] == 'admin') {
                 echo '<option ';
                 if(isset($_SESSION['order']['from']) && $_SESSION['order']['from'] == $d['date']){ echo 'selected';}
                 if($d['open'] == 0 || $d['free'] == 0) { echo ' disabled';}
-                echo ' value="' . $d['date'] . '">' . date("d-m",strtotime($d['date'])) . ' max (' . $d['free'] . ')'; 
+                echo ' value="' . $d['date'] . '_' . $d['free'] .  '">' . date("d-m",strtotime($d['date'])) . ' max (' . $d['free'] . ')'; 
                 echo '</option>';
+                //echo '<input type="hidden" name="from_max_select" value="' . $d['free'] . '">';
                 }           
             ?>  
                 </select>
@@ -107,8 +108,10 @@ elseif($_SESSION['login'] == 'admin') {
                 echo '<option ';
                 if(isset($_SESSION['order']['until']) && $_SESSION['order']['until'] == $d['date']){ echo 'selected';}
                 if($d['open'] == 0 || $d['free'] == 0) { echo ' disabled';}
-                echo ' value="' . $d['date'] . '">' . date("d-m",strtotime($d['date'])) . ' (max ' . $d['free'] . ')'; 
+                echo ' value="' . $d['date'] . '_' . $d['free'] . '">' . date("d-m",strtotime($d['date'])) . ' (max ' . $d['free'] . ')'; 
                 echo '</option>';
+                //echo '<input type="hidden" name="until_max_select" value="' . $d['free'] . '">';
+
                 }           
             ?>  
                 </select>
@@ -131,7 +134,10 @@ foreach ($maxaantal as $ccc) {
     if($ccc['free'] < $mmm) {
         $mmm = $ccc['free'];
     }
-} ?> 
+} 
+//if($_SESSION['from_max_select'] < $mmm){ $mmm = $_SESSION['from_max_select'];}
+//if($_SESSION['until_max_select'] < $mmm){ $mmm = $_SESSION['until_max_select'];}
+?> 
 <?php
 for($i = 1; $i <= $mmm; $i++) {
 ?>

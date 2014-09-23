@@ -92,7 +92,7 @@ if(isset($_POST['new'])) {
                 <td>Edit</td><td>Delete</td></tr>  </table>        
         
 <?php 
-$allcats = mysqli_query($link, "SELECT * FROM CATEGORY"); while($allcat = mysqli_fetch_assoc($allcats)) {
+$allcats = mysqli_query($link, "SELECT * FROM category"); while($allcat = mysqli_fetch_assoc($allcats)) {
     $catdd[$allcat['id']] = $allcat['name'];
 }
 $cat = mysqli_query($link,"SELECT *, category.`name` as cname FROM category JOIN product ON product.category = category.id");

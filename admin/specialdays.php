@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
             }
         </script>
     </head>
-<?php session_start();
+<?php 
 if($_SESSION['login'] == 'admin') {
 include_once '../db.inc.php';
 include_once './admin_settings.inc';

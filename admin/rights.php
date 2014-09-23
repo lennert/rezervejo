@@ -63,9 +63,9 @@ while($groupsarray = mysqli_fetch_assoc($selectgroups)) {
             <?php echo $header; ?></div>
         <p>
             Legend:<br />
-            Max. time: how long can a user keep an item (0 = max available)<br />
-            Max. time before: how long in advance can a user reserve an item (in days)<br />
             Max. time keeping: how long can a user keep an item (in days)<br />
+            Max. time before - Max. time until : how long in advance can a user reserve an item (in days)<br />
+            <i>eg: if today is 23-09-2014 and before = 2, until = 5, then this user can select a start date from 25-09 [23+2] until 30-09 [25+5]</i><br />          
             Max. items: how many items, from one category, can a user reserve at one time<br />
             If no rights are added to a category, only an admin can reserve those objects. Other users can see the availability.
         </p>
@@ -79,10 +79,10 @@ while($groupsarray = mysqli_fetch_assoc($selectgroups)) {
                     <td><b><?= $right['groupname'];?></b></td>
                 </tr>
                 <tr>
-                    <td>Max. time:</td><td><input name="maxtime" value="<?= $right['maxtime'];?>"></td>
+                    <td>Max. time keeping:</td><td><input name="maxtime" value="<?= $right['maxtime'];?>"></td>
                     <td>Max. time before:</td><td><input name="maxbefore" value="<?= $right['maxbefore'];?>"></td>
-                    <td>Max. time keeping:</td><td><input name="maxuntil" value="<?= $right['maxuntil'];?>"></td>
-                    <td>Max. items:</td><td><input name="maxitems" value="<?= $right['maxtime'];?>"></td>
+                    <td>Max. time until:</td><td><input name="maxuntil" value="<?= $right['maxuntil'];?>"></td>
+                    <td>Max. items:</td><td><input name="maxitems" value="<?= $right['maxitems'];?>"></td>
                 </tr>
                 <tr>
                     <td><input type="hidden" name="rightid" value="<?= $right['rightsid'] ;?>"><input type="submit" value="save" name="save"></td>
