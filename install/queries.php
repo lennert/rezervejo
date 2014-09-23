@@ -10,7 +10,7 @@ $queries = array(
     "reservations" => "CREATE TABLE IF NOT EXISTS `reservations` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `product` int(11) NOT NULL DEFAULT '0',  `user` int(11) NOT NULL DEFAULT '0',  `from` date NOT NULL DEFAULT '0000-00-00',  `until` date NOT NULL DEFAULT '0000-00-00',  `number` int(11) NOT NULL DEFAULT '0',  `cart` int(11) DEFAULT NULL,  PRIMARY KEY (`id`),  KEY `res_prod_id` (`product`),  KEY `res_user_id` (`user`),  CONSTRAINT `res_prod_id` FOREIGN KEY (`product`) REFERENCES `product` (`id`),  CONSTRAINT `res_user_id` FOREIGN KEY (`user`) REFERENCES `users` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
     "rights" => "CREATE TABLE IF NOT EXISTS `rights` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `group` int(11) NOT NULL DEFAULT '0',  `category` int(11) NOT NULL DEFAULT '0',  `maxtime` int(11) NOT NULL DEFAULT '0',
  `maxbefore` int(11) NOT NULL DEFAULT '0',  `maxuntil` int(11) NOT NULL DEFAULT '0',  `maxitems` int(11) NOT NULL DEFAULT '0',  PRIMARY KEY (`id`),  KEY `rig_group_id` (`group`),  KEY `rig_cat_id` (`category`),  CONSTRAINT `rig_cat_id` FOREIGN KEY (`category`) REFERENCES `category` (`id`),  CONSTRAINT `rig_group_id` FOREIGN KEY (`group`) REFERENCES `groups` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
-    "settings" => "CREATE TABLE IF NOT EXISTS `settings` (`setting` varchar(50) DEFAULT NULL,`value` varchar(50) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "settings" => "CREATE TABLE IF NOT EXISTS `settings` (`setting` varchar(50) DEFAULT NULL,`value` varchar(512) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
     
     #DEFAULT DATA
     "groups_data" => "INSERT INTO `groups` (`id`, `name`, `prereq`) VALUES (1, 'admin', ''),(2, 'default', '');",
