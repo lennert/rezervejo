@@ -1,0 +1,57 @@
+SETTINGS: added by default
+
+ADMIN: check if install folder still exists. If so, give warning about security threat
+
+
+REGLEMENT:
+- periodes: 
+    lector: 1 maand, dag zelf
+    student: 1 week, niet op dag zelf
+- ontlenen op eigen verantwoordelijkheid:
+    apps zelf installeren
+    zelf opladen
+- handleiding voorzien
+    meesturen als bijlage/download
+- voor akkoord aanvinken bij reservatie - ondertekenen op kasticket - toch navragen bij Luc Faes
+- aftekenen bij terugbrengen > alles ok / niet ok
+
+OPLADEN:
+    trolley's afschaffen (?), zelf opladen.
+    serverkast behouden om zelf op te laden indien nodig
+
+
+USER RIGHTS
+ > per categorie
+    - max items
+    - periode max from , latest day , max until
+        bv 
+            category: tablets
+            user: teacher
+            max-items: -1
+            max-from: $today
+            max-period: $max-from + 1 month
+            max-until: selected from + 7 
+
+            category: tablets
+            user: student
+            max-items: 1
+            max-from: $today + 1 day
+            max-period: $max-from + 7 days
+            max-until: selected from + 7 days
+
+PLUGINS
+    bv : student moet mail sturen naar docent bij reservatie
+
+    table plugins:
+        id              1   
+        on_page         cart.php
+        user_type       student
+        folder          plugin/extra_permissions
+
+        in folder : plugin_settings.inc
+                    exper.inc
+                    
+
+elke pagina checkt voor plugins > SELECT * FROM plugins
+    include plugin file
+    hoe extra gegevensinbouwen in systeem? Waneer ziet student de vraag: extra scherm, extra regel

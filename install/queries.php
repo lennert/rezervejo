@@ -1,0 +1,19 @@
+<?php
+$queries = array(
+    #TABELS
+    "category" => "CREATE TABLE IF NOT EXISTS `category` (  `id` int(11) NOT NULL AUTO_INCREMENT,   `name` varchar(55) NOT NULL,   `img` varchar(155) NOT NULL,   `description` varchar(455) NOT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "days" => "CREATE TABLE IF NOT EXISTS `days` (   `day_nr` int(11) NOT NULL,  `open` int(11) NOT NULL,  `open_time` time NOT NULL,  `close_time` time NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "days_special" => "CREATE TABLE IF NOT EXISTS `days_special` (  `day` date NOT NULL,  `open` int(11) NOT NULL,  `open_time` time NOT NULL,  `close_time` time NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;",
+    "groups" => "CREATE TABLE IF NOT EXISTS `groups` (   `id` int(11) NOT NULL AUTO_INCREMENT,  `name` varchar(50) NOT NULL,  `prereq` varchar(50) NOT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;",
+    "users" => "CREATE TABLE IF NOT EXISTS `users` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `groups_id` int(11) NOT NULL, `username` varchar(50) NOT NULL,  `last_name` varchar(50) NOT NULL,  `first_name` varchar(50) NOT NULL,  `mail` varchar(50) NOT NULL,  `password` varchar(255) NOT NULL,  `active` int(11) NOT NULL,  PRIMARY KEY (`id`),  KEY `group` (`groups_id`),  CONSTRAINT `group` FOREIGN KEY (`groups_id`) REFERENCES `groups` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "product" => "CREATE TABLE IF NOT EXISTS `product` (   `id` int(11) NOT NULL AUTO_INCREMENT,  `category` int(11) NOT NULL,  `name` varchar(55) NOT NULL,  `img` varchar(155) NOT NULL,  `description` varchar(455) NOT NULL,  `number` int(11)NOT NULL,  PRIMARY KEY (`id`),  KEY `prod_category` (`category`),  CONSTRAINT `prod_category` FOREIGN KEY (`category`) REFERENCES `category` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "reservations" => "CREATE TABLE IF NOT EXISTS `reservations` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `product` int(11) NOT NULL DEFAULT '0',  `user` int(11) NOT NULL DEFAULT '0',  `from` date NOT NULL DEFAULT '0000-00-00',  `until` date NOT NULL DEFAULT '0000-00-00',  `number` int(11) NOT NULL DEFAULT '0',  `cart` int(11) DEFAULT NULL,  PRIMARY KEY (`id`),  KEY `res_prod_id` (`product`),  KEY `res_user_id` (`user`),  CONSTRAINT `res_prod_id` FOREIGN KEY (`product`) REFERENCES `product` (`id`),  CONSTRAINT `res_user_id` FOREIGN KEY (`user`) REFERENCES `users` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "rights" => "CREATE TABLE IF NOT EXISTS `rights` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `group` int(11) NOT NULL DEFAULT '0',  `category` int(11) NOT NULL DEFAULT '0',  `maxtime` int(11) NOT NULL DEFAULT '0',
+ `maxbefore` int(11) NOT NULL DEFAULT '0',  `maxuntil` int(11) NOT NULL DEFAULT '0',  `maxitems` int(11) NOT NULL DEFAULT '0',  PRIMARY KEY (`id`),  KEY `rig_group_id` (`group`),  KEY `rig_cat_id` (`category`),  CONSTRAINT `rig_cat_id` FOREIGN KEY (`category`) REFERENCES `category` (`id`),  CONSTRAINT `rig_group_id` FOREIGN KEY (`group`) REFERENCES `groups` (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    "settings" => "CREATE TABLE IF NOT EXISTS `settings` (`setting` varchar(50) DEFAULT NULL,`value` varchar(50) DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;",
+    
+    #DEFAULT DATA
+    "groups_data" => "INSERT INTO `groups` (`id`, `name`, `prereq`) VALUES (1, 'admin', ''),(2, 'default', '');",
+    "settings_data" => "INSERT INTO `settings` (`setting`, `value`) VALUES ('name', 'rezervejo'),('logo', 'images/rezervejo.png'),('email', null),('url',null),('terms',null);",
+    "open days" => "INSERT INTO `days` (`day_nr`,`open`) VALUES (0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0);" 
+);

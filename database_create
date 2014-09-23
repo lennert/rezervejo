@@ -1,0 +1,122 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server versie:                5.6.16 - MySQL Community Server (GPL)
+-- Server OS:                    Win32
+-- HeidiSQL Versie:              8.3.0.4795
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Structuur van  tabel rezervejo.category wordt geschreven
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(55) NOT NULL,
+  `img` varchar(155) NOT NULL,
+  `description` varchar(455) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumpen data van tabel rezervejo.category: ~0 rows (ongeveer)
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+
+
+-- Structuur van  tabel rezervejo.groups wordt geschreven
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `prereq` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Dumpen data van tabel rezervejo.groups: ~2 rows (ongeveer)
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` (`id`, `name`, `prereq`) VALUES
+	(1, 'admin', ''),
+	(2, 'default', '');
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+
+
+-- Structuur van  tabel rezervejo.product wordt geschreven
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` int(11) NOT NULL,
+  `name` varchar(55) NOT NULL,
+  `img` varchar(155) NOT NULL,
+  `description` varchar(455) NOT NULL,
+  `number` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `prod_category` (`category`),
+  CONSTRAINT `prod_category` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+-- Dumpen data van tabel rezervejo.product: ~0 rows (ongeveer)
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+
+
+-- Structuur van  tabel rezervejo.reservations wordt geschreven
+CREATE TABLE IF NOT EXISTS `reservations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product` int(11) NOT NULL DEFAULT '0',
+  `user` int(11) NOT NULL DEFAULT '0',
+  `from` date NOT NULL DEFAULT '0000-00-00',
+  `until` date NOT NULL DEFAULT '0000-00-00',
+  `number` int(11) NOT NULL DEFAULT '0',
+  `cart` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `res_prod_id` (`product`),
+  KEY `res_user_id` (`user`),
+  CONSTRAINT `res_prod_id` FOREIGN KEY (`product`) REFERENCES `product` (`id`),
+  CONSTRAINT `res_user_id` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumpen data van tabel rezervejo.reservations: ~0 rows (ongeveer)
+/*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
+
+
+-- Structuur van  tabel rezervejo.rights wordt geschreven
+CREATE TABLE IF NOT EXISTS `rights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group` int(11) NOT NULL DEFAULT '0',
+  `category` int(11) NOT NULL DEFAULT '0',
+  `maxtime` int(11) NOT NULL DEFAULT '0',
+  `maxbefore` int(11) NOT NULL DEFAULT '0',
+  `maxuntil` int(11) NOT NULL DEFAULT '0',
+  `maxitems` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `rig_group_id` (`group`),
+  KEY `rig_cat_id` (`category`),
+  CONSTRAINT `rig_cat_id` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
+  CONSTRAINT `rig_group_id` FOREIGN KEY (`group`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumpen data van tabel rezervejo.rights: ~0 rows (ongeveer)
+/*!40000 ALTER TABLE `rights` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rights` ENABLE KEYS */;
+
+
+-- Structuur van  tabel rezervejo.users wordt geschreven
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group` int(11) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `mail` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `active` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group` (`group`),
+  CONSTRAINT `group` FOREIGN KEY (`group`) REFERENCES `groups` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumpen data van tabel rezervejo.users: ~0 rows (ongeveer)
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

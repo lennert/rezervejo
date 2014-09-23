@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>install/database_setup.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>15</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/htdocs/rezervejo/install/queries.php</file>
+            <file>file:/D:/htdocs/rezervejo/admin/index.php</file>
+            <file>file:/D:/htdocs/rezervejo/install/database_setup.php</file>
+            <file>file:/D:/htdocs/rezervejo/cart.php</file>
+            <file>file:/D:/htdocs/rezervejo/createaccount.php</file>
+            <file>file:/D:/htdocs/rezervejo/admin/groups.php</file>
+            <file>file:/D:/htdocs/rezervejo/style.css</file>
+            <file>file:/D:/htdocs/rezervejo/logincheck.inc</file>
+            <file>file:/D:/htdocs/rezervejo/nologin.inc</file>
+            <file>file:/D:/htdocs/rezervejo/install/imageUpload.php</file>
+            <file>file:/D:/htdocs/rezervejo/install/create_admin.php</file>
+            <file>file:/D:/htdocs/rezervejo/index.php</file>
+            <file>file:/D:/htdocs/rezervejo/install/settings.php</file>
+            <file>file:/D:/htdocs/rezervejo/user.inc</file>
+            <file>file:/D:/htdocs/rezervejo/admin/admin_settings.inc</file>
+            <file>file:/D:/htdocs/rezervejo/admin/reservations.php</file>
+        </group>
+    </open-files>
+</project-private>
