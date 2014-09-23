@@ -44,7 +44,7 @@
                             $insert = mysqli_query($link,"INSERT INTO users (username,first_name,last_name,mail,password,active,groups_id) VALUES ('$username','$first_name','$last_name','$email','$inspw','$activate','$groupsid')");
                             if($insert) {
                                 
-                                
+                                $activateurl =  $setting['url'] . '/activateaccount.php?activate=' . $activate;
                                 $to      = $email;
                                 $subject = 'Activate your account for ' . $setting['name'];
                                 $message = 'Click this link to activate your account: ' . $activateurl;

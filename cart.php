@@ -63,8 +63,14 @@
             <input type="hidden" value="<?=$productid;?>" name="prodid">
             <p><b><?= $cartitem['number'] ;?> &times; <?= $cartitem['name'];?></b>  [ <?= $cartitem['from']; ?> - <?= $cartitem['until'];?> ] <input type="submit" value="delete from cart" name="delete" onclick="javascript:return show_confirm()"></p>
         </form>
+
                 <?php
-                }
+                } ?>
+        <hr />
+        <form method="post">
+            <input type="submit" value="order" name="order">
+        </form>
+                <?php
             }
             elseif(!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
                 echo 'No items in your cart';
@@ -75,11 +81,6 @@
         <form method="post">
             <input type="submit" value="order" name="order">
         </form>
-        <!--
-        Confirm: check availabilty -> new createCal()
-        Write to database
-        Send email
-        if student: needs to check permission from teacher + email
-        --><?php if(isset($sucnot)) {echo $sucnot;} ?>
+      <?php if(isset($sucnot)) {echo $sucnot;} ?>
     </body>
 </html>
